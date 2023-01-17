@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.vika.pro.dao.PersonDAO;
+import ru.vika.pro.models.People;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
@@ -24,9 +25,10 @@ public class pro_calc {
     @RequestMapping(value = "/people/create", method = RequestMethod.GET)
     public String sayNames(@RequestParam("num") int number,
                            Model model){
-        PersonDAO persons = new PersonDAO(number);
-//        System.out.println(persons.getPeopleList());
-        model.addAttribute("persons",persons);
+        if (!model.containsAttribute("persons")){
+            PersonDAO persons = new PersonDAO(number);
+            model.addAttribute("persons",persons);
+        }
         return "2_define_ppl";
     }
     @PostMapping("/people/save")
@@ -34,6 +36,8 @@ public class pro_calc {
                              BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {
             System.out.println("the spisok is: "+persons.getPeopleList());
+            model.addAttribute("persons",persons);
+            model.addAttribute("error","Invalid fields!");
             return sayNames(persons.getPeopleList().size(), model);
         }
         else{

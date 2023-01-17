@@ -1,9 +1,6 @@
 package ru.vika.pro.dao;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.vika.pro.models.People;
 import org.springframework.stereotype.Component;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 

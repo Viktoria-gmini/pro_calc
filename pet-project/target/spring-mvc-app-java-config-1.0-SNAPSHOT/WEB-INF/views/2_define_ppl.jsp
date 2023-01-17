@@ -26,5 +26,6 @@
         </table>
     </fieldset>
 </form>
+<p th:text="${error}" > </p>
 </body>
 </html>
