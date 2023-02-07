@@ -5,9 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.vika.pro.dao.PersonDAO;
-import ru.vika.pro.models.People;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
 
 @SessionAttributes("persons")
@@ -25,10 +23,8 @@ public class pro_calc {
     @RequestMapping(value = "/people/create", method = RequestMethod.GET)
     public String sayNames(@RequestParam("num") int number,
                            Model model){
-        if (!model.containsAttribute("persons")){
-            PersonDAO persons = new PersonDAO(number);
-            model.addAttribute("persons",persons);
-        }
+        PersonDAO persons = new PersonDAO(number);
+        model.addAttribute("persons",persons);
         return "2_define_ppl";
     }
     @PostMapping("/people/save")
@@ -36,14 +32,45 @@ public class pro_calc {
                              BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {
             System.out.println("the spisok is: "+persons.getPeopleList());
-            model.addAttribute("persons",persons);
-            model.addAttribute("error","Invalid fields!");
             return sayNames(persons.getPeopleList().size(), model);
         }
         else{
+            persons.createDebtsTable(persons.getPeopleList().size());
             model.addAttribute("persons", persons);
+//            model.addAttribute("data",new RequestBody(persons.getPeopleList().size()));
             return "3_calc";
         }
+    }
+
+
+    @PostMapping("/people/save/newResults")
+    public String saveNewResults(
+                                @RequestParam(name = "selected_creditor") int creditor,
+                                @RequestParam(name = "cost") double cost,
+                                 @RequestParam(name = "parts", required=false) int [] parts,
+                                 @ModelAttribute("persons") PersonDAO persons,
+                                 Model model){
+        try{
+            System.out.println("creditor is " + persons.getPeopleList().get(creditor-1));
+            for(int i:parts) {
+                double value = cost/parts.length;
+                double scale = Math.pow(10, 2);
+                double debt = Math.ceil(value * scale) / scale;
+                persons.push(i-1,creditor-1,debt);
+                if(creditor!=i){
+                System.out.println("Debtor "+persons.getPeopleList().get(i-1)+
+                        " owes to creditor " + persons.getPeopleList().get(creditor-1)+" "+debt+" rubles");}
+            }
+            for(int j=0;j<persons.getPeopleList().size();j++){
+                System.out.println("Now debtor "+persons.getPeopleList().get(j)+
+                        " owes to creditor " + persons.getPeopleList().get(creditor-1)+" "+
+                        persons.getDebts()[j][creditor-1]+" rubles");
+            }
+        }
+        catch (Exception e){
+            System.out.println("karramba");
+        }
+        return "3_calc";
     }
 
 }

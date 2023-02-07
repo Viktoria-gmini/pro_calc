@@ -10,7 +10,7 @@
 <p>Input number of people and group of people</p>
 
 <form action = "people/create" method = "GET" th:object="${number}">
-    Number of groups:  <input type="number" name = "num" step = "1" min = "2" max = "10" value ="2">
+    Number of persons:  <input type="number" name = "num" step = "1" min = "2" max = "10" value ="2">
     <br />
     <input type = "submit" value = "Submit" />
 </form>

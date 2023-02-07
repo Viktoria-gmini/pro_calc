@@ -13,19 +13,16 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Number of persons</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="one, itemStat : *{peopleList}">
                 <td th:text="${itemStat.index+1}" name = "id"></td>
                 <td><input th:field="*{peopleList[__${itemStat.index}__].name}" type="text"></td>
-                <td><input type="number" th:field="*{peopleList[__${itemStat.index}__].number_of_people}" step = "1" min = "1" max = "10" value ="1"></td>
             </tr>
             </tbody>
         </table>
     </fieldset>
 </form>
-<p th:text="${error}" > </p>
 </body>
 </html>
