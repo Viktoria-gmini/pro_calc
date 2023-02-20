@@ -45,8 +45,8 @@ public class pro_calc {
 
     @PostMapping("/people/save/newResults")
     public String saveNewResults(
-                                @RequestParam(name = "selected_creditor") int creditor,
-                                @RequestParam(name = "cost") double cost,
+                                @RequestParam(name = "selected_creditor",required=false) int creditor,
+                                @RequestParam(name = "cost",required=false) double cost,
                                  @RequestParam(name = "parts", required=false) int [] parts,
                                  @ModelAttribute("persons") PersonDAO persons,
                                  Model model){
@@ -62,7 +62,7 @@ public class pro_calc {
                         " owes to creditor " + persons.getPeopleList().get(creditor-1)+" "+debt+" rubles");}
             }
             for(int j=0;j<persons.getPeopleList().size();j++){
-                System.out.println("Now debtor "+persons.getPeopleList().get(j)+
+                System.out.println("Теперь должник "+persons.getPeopleList().get(j)+
                         " owes to creditor " + persons.getPeopleList().get(creditor-1)+" "+
                         persons.getDebts()[j][creditor-1]+" rubles");
             }

@@ -1,3 +1,4 @@
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Calculator</title>
@@ -16,7 +17,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="one, itemStat : *{peopleList}">
+            <tr th:each="one, itemStat : ${persons.peopleList}">
                 <td th:text="${itemStat.index+1}" name = "id"></td>
                 <td><input th:field="*{peopleList[__${itemStat.index}__].name}" type="text"></td>
             </tr>

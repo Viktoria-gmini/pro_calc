@@ -1,8 +1,11 @@
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Calculator</title>
 </head>
 <body>
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FKO7aMKrz0mckIcXBXyxgua%2Fhtml.to.design-(Community)%3Fnode-id%3D0%253A1%26t%3DRFZKojuuU9qC5m3P-1" allowfullscreen></iframe>
+
 
 <table>
     <thead>
@@ -47,9 +50,9 @@
         </thead>
         <tbody>
         <tr th:each="row,itemstat : ${persons.debts}">
-            <th><input th:value="${persons.peopleList[itemstat.index].name}" type="text" readonly></th>
+            <th><input th:value="${persons.peopleList[itemstat.index].name}"  type="text" readonly></th>
             <td th:each="debt : ${row}">
-                <input type="text" th:value="${debt}" readonly/>
+                <input type="text"  th:value="${debt}" readonly/>
             </td>
         </tr>
         </tbody>
