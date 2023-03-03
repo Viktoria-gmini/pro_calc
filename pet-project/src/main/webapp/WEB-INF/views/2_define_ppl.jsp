@@ -2,6 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Calculator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+            background-color: #e6e6e6;
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"], button {
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+    </style>
 </head>
 <body>
 
@@ -24,6 +48,9 @@
             </tbody>
         </table>
     </fieldset>
+</form>
+<form action="/pet_project_war_exploded">
+    <input type="submit" value="Back" />
 </form>
 </body>
 </html>
